@@ -3,9 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>سامانه استعدادیابی</title>
-
-  <link rel="shortcut icon" href="icons/favicon.png">
+  <title>سامانه آزمون ملل </title>
+  <link rel="shortcut icon" href="icons/melalLogo.jpg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   <link rel="stylesheet" href="css/style.css">
@@ -255,7 +254,8 @@
 
   <div class="content-body">
     <div class="container-fluid">
-    <div class="mx-auto bg-white  mt-10 mb-8 text-center    border border-teal-200 rounded-3xl p-6 sm:p-7 shadow-xl relative overflow-hidden transition duration-300 hover:shadow-2xl text-sm sm:text-base">
+
+ <div class="mx-auto bg-white  mt-10 mb-8 text-center    border border-teal-200 rounded-3xl p-6 sm:p-7 shadow-xl relative overflow-hidden transition duration-300 hover:shadow-2xl text-sm sm:text-base">
 
   <h2 class="text-xl w-1/2 mx-auto sm:text-2xl md:text-3xl py-2 rounded-lg bg-[#E5E7EB] font-extrabold text-black mb-3 sm:mb-4">
     🌟 سامانه استعدادیابی ملل
@@ -269,6 +269,25 @@
   </p>
 </div>
 
+
+
+ 
+
+  <style>
+    .fade {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #2d3748;
+      padding: 16px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  </style>
+</div>
 
 
 <div class="dashboard-cards">
@@ -320,17 +339,14 @@
    @if ($exams->isEmpty())
           <p>هیچ آزمونی برای نمایش وجود ندارد.</p>
         @else
-          @foreach ($exams as $exam)
-            <a href="{{ route('exams.show', $exam->id) }}" class="card">
-              <img 
-                src="{{ asset($exam->image ?? 'images/default.jpg') }}" 
-                alt="{{ $exam->title }}" 
-                class="card-img lazy-img" 
-                loading="lazy">
-              <div class="card-title">{{ $exam->title }}</div>
-              <div class="card-text">{{ Str::limit($exam->description, 120) }}</div>
-            </a>
-          @endforeach
+@foreach ($exams as $exam)
+  <a href="{{ route('login', ['quiz_id' => $exam->id]) }}" class="card">
+    <img src="{{ asset($exam->image ?? 'images/default.jpg') }}" alt="{{ $exam->title }}" class="card-img lazy-img" loading="lazy">
+    <div class="card-title">{{ $exam->title }}</div>
+    <div class="card-text">{{ Str::limit($exam->description, 120) }}</div>
+  </a>
+@endforeach
+
         @endif
       </div>
       <section class="mt-16 text-center text-sm text-gray-600 px-4">

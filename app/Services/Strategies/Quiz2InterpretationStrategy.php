@@ -9,8 +9,9 @@ class Quiz2InterpretationStrategy implements InterpretationStrategyInterface
     {
         $results = [];
 
-        // جمع امتیازها به تفکیک بخش
         foreach ($answers as $answer) {
+            error_log("Answer section: " . $answer->section . ", value: " . $answer->answer_value);
+            
             $section = $answer->section;
 
             if (!isset($results[$section])) {
@@ -21,23 +22,36 @@ class Quiz2InterpretationStrategy implements InterpretationStrategyInterface
             $results[$section]['count']++;
         }
 
-        // تعیین سطح بندی 4 مرحله‌ای و گرفتن تفسیر و پیشنهاد از DB
         foreach ($results as $section => &$data) {
-            $avgScore = $data['score'] / $data['count'];
+            $totalScore = $data['score'];
+            $count = $data['count'];
+            $maxScore = $count * 5; // فرض بیشترین نمره ۵
 
-            if ($avgScore >= 80) {
+            error_log("Section: {$section} | Total Score: {$totalScore} | Count: {$count} | Max Score: {$maxScore}");
+
+            $percentage = ($totalScore / $maxScore) * 100;
+
+            if ($percentage >= 80) {
                 $level = 'very_high';
-            } elseif ($avgScore >= 60) {
+            } elseif ($percentage >= 60) {
                 $level = 'high';
-            } elseif ($avgScore >= 40) {
+            } elseif ($percentage >= 40) {
                 $level = 'medium';
             } else {
                 $level = 'low';
             }
 
+            error_log("Determined Level: {$level} (Percentage: {$percentage}%)");
+
             $insight = TalentInsight::where('section', $section)
                 ->where('level', $level)
                 ->first();
+
+            if (!$insight) {
+                error_log("No insight found for section: {$section}, level: {$level}");
+            } else {
+                error_log("Insight found for section: {$section}, level: {$level}");
+            }
 
             $data['level'] = $level;
             $data['interpretation'] = $insight ? $insight->interpretation : 'تفسیر یافت نشد.';

@@ -21,7 +21,8 @@
                                 <div class="card bg-white rounded-2xl shadow-lg p-6">
                                     @if ($exam->image)
                                         <div class="mt-4 mb-6">
-                                            <img src="{{ asset($exam->image) }}" alt="{{ $exam->title }}" class="mx-auto w-full h-32 object-cover rounded-lg shadow-lg">
+<img src="{{ asset($exam->image) }}" alt="{{ $exam->title }}"
+     class="mx-auto w-full sm:w-3/4 md:w-full h-auto object-contain rounded-lg shadow-lg max-h-32 sm:max-h-40 md:max-h-48">
                                         </div>
                                     @endif
 
@@ -57,21 +58,8 @@
         </div>
     </div>
 
-    <script>
-        document.querySelectorAll('.contact-button').forEach((button) => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                answer.classList.toggle('hidden');
-            });
-        });
+  <script src="{{ asset('js/completedExams.js') }}"></script>
 
-        document.querySelectorAll('.faq-question').forEach((question) => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.classList.toggle('hidden');
-            });
-        });
-    </script>
 
     <style>
         body {

@@ -1,4 +1,5 @@
 {
-    "/resources/js/test-results.js": "/resources/js/test-results.js",
+    "/js/app.js": "/js/app.js",
+    "/js/completedExams.js": "/js/completedExams.js",
     "/css/app.css": "/css/app.css"
 }

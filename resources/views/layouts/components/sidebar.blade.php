@@ -1,10 +1,10 @@
 <!-- هدر -->
 
 <!-- سایدبار -->
-<div class="deznav z-10" style="background: white; box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);">
-  <div class="deznav-scroll">
+<div class="deznav rounded-md z-10" style="background: white; box-shadow: 3px 0 3px  rgba(0, 0, 0, 0.3);">
+  <div class="deznav-scroll" style="background: white; box-shadow: 3px 0 3px  rgba(0, 0, 0, 0.3);">
     <div class="dropdown header-profile">
-      <div class="nav-link flex items-center p-3" style="color: #333;">
+      <div class="nav-link flex items-center p-3 bg-[#4cccc]" style="color: #333;">
         <img src="/images/avatar/1.png" width="28" class="rounded-full" alt="">
         <div class="header-info ms-3 flex flex-col items-center justify-center text-center">
           @auth

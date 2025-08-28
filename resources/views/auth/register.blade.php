@@ -9,26 +9,33 @@
         {{-- نمایش خطاهای اعتبارسنجی --}}
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        {{-- نمایش پیام موفقیت --}}
+        {{-- پیام موفقیت --}}
         @if(session('success'))
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ session('success') }}
             </div>
         @endif
 
-        <form method="POST" action="{{ route('register') }}" class="rtl text-right">
+        {{-- فرم ورود یا ثبت‌نام --}}
+        <form method="POST" action="{{ route('login') }}" class="rtl text-right">
             @csrf
 
-            {{-- فقط فرم ساده شامل نام و کد ملی --}}
+            {{-- نام و نام خانوادگی --}}
             <div>
                 <x-label for="name" :value="'نام و نام خانوادگی'" />
                 <x-input id="name" name="name" type="text" class="block mt-1 w-full" value="{{ old('name') }}" required autofocus />
             </div>
 
+            {{-- کد ملی --}}
             <div class="mt-4">
                 <x-label for="national_code" :value="'کد ملی'" />
                 <x-input id="national_code" name="national_code" type="text" maxlength="10" class="block mt-1 w-full" value="{{ old('national_code') }}" required />
             </div>
+
+            {{-- hidden input برای quiz_id --}}
+            @if(request()->has('quiz_id'))
+                <input type="hidden" name="quiz_id" value="{{ request()->query('quiz_id') }}">
+            @endif
 
             <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded">

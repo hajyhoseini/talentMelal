@@ -8,16 +8,21 @@ class Option extends Model
 {
     use HasFactory;
 
-    protected $table = 'options';  // نام جدول خود را اینجا وارد کنید
+    protected $table = 'options';
+
+    protected $primaryKey = 'option_id'; // اضافه شده
 
     protected $fillable = [
-        'label',   // فیلدهای مورد نظر برای پر کردن
-        'question_id',  // فیلدی که به سوالات ارتباط دارد
+        'label',
+        'question_id',
+        'value',
+        'quiz_id',
+        'weight',
+        'trait',
     ];
 
     public $timestamps = true;
 
-    // تعریف رابطه با مدل AllQuestion
     public function question()
     {
         return $this->belongsTo(AllQuestion::class, 'question_id');

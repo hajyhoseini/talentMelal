@@ -28,8 +28,7 @@
 </div>
 
 
-<form method="POST" action="{{ route('quiz.submit') }}" id="quiz-form" class="hidden pt-10">
-    <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+<form method="POST" action="{{ route('quiz.submit', ['quizId' => $quiz->id]) }}" id="quiz-form" class="hidden pt-10">    <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
     @csrf
 
     <div class="text-left pr-8 space-y-3 text-2xl text-black">
@@ -316,7 +315,7 @@ function handlePulse(input) {
 
     function autoFillAnswers() {
         document.querySelectorAll('.question').forEach(question => {
-            const input = question.querySelector('input[value="4"]');
+            const input = question.querySelector('input[value="1"]');
             if (input) input.checked = true;
         });
         updateButtons();

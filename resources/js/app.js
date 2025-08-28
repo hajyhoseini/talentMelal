@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import dt from 'datatables.net-dt';
-
+import './completedExams';
 $(document).ready(function() {
   $('#quizUsersTable').DataTable({
     columnDefs: [

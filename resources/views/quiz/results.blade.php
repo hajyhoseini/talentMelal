@@ -61,37 +61,40 @@ $featuredPeople = $featuredPeople ?? collect();
             </div>
 <x-chart-component :results="$results" />
             {{-- 🔍 تحلیل بخش‌ها --}}
-            <div class="mt-4 flex flex-col items-center" dir="rtl">
-                <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-8 bg-[#04CCCC] p-3 rounded-lg w-3/4 text-center">🔍 تحلیل بخش‌ها</h4>
-                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 justify-items-center w-6/7 gap-3 lg:gap-4" >
-                @forelse ($results as $section => $data)
-@php
-    $peopleForSection = $featuredPeople->filter(function($person) use ($section) {
-        return strtolower($person->related_talent) === strtolower($section);
-    })->values();
-@endphp
-@php
-    $booksForSection = $featuredBooks->filter(function($book) use ($section) {
-        return strtolower($book->related_talent) === strtolower($section);
-    })->values();
-@endphp
-<x-score-card
-    :section="$section"
-    :data="$data"
-    :max-scores="$maxScores"
-    :description="$data['description'] ?? ''"
-    :featured-people="$featuredPeople"
-    :featured-books="$booksForSection"
-/>
+           <div class="mt-4 flex flex-col items-center" dir="rtl">
+    <h4 class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-8 bg-[#04CCCC] p-3 rounded-lg w-3/4 text-center">
+        🔍 تحلیل بخش‌ها
+    </h4>
 
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 justify-items-center w-6/7 gap-3 lg:gap-4">
+        @forelse ($results as $section => $data)
+            @php
+                $peopleForSection = $featuredPeople->filter(function($person) use ($section) {
+                    return strtolower($person->related_talent) === strtolower($section);
+                })->values();
 
+                $booksForSection = $featuredBooks->filter(function($book) use ($section) {
+                    return strtolower($book->related_talent) === strtolower($section);
+                })->values();
+            @endphp
 
-@empty
-    <p class="col-span-full text-red-600 font-bold text-center text-base sm:text-lg md:text-xl">هیچ نتیجه‌ای یافت نشد.</p>
-@endforelse
-
-                </div>
-            </div>
+            <x-score-card
+                :section="$section"
+                :data="$data"
+                :max-scores="$maxScores"
+                :description="$data['description'] ?? ''"
+                :featured-people="$peopleForSection"
+                :featured-books="$booksForSection"
+                :suggestions="$data['suggestions'] ?? []"
+                :interpretation="$data['interpretation'] ?? ''"
+            />
+        @empty
+            <p class="col-span-full text-red-600 font-bold text-center text-base sm:text-lg md:text-xl">
+                هیچ نتیجه‌ای یافت نشد.
+            </p>
+        @endforelse
+    </div>
+</div>
 
 
             {{-- ✅ امتیاز نهایی --}}

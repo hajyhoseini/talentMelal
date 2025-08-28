@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Strategies\InterpretationStrategyFactory;
 use App\Models\QuizColumn;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Option; 
 class QuizService
 {
     /**
@@ -60,7 +60,8 @@ public function saveAnswers(array $answers, int $quizId, int $userId)
     AllAnswer::where('user_id', $userId)
              ->where('quiz_id', $quizId)
              ->delete();
-    foreach ($answers as $questionId => $answerValue) {
+
+    foreach ($answers as $questionId => $answerData) {
         $question = AllQuestion::find($questionId);
 
         if (!$question) {
@@ -72,13 +73,16 @@ public function saveAnswers(array $answers, int $quizId, int $userId)
             'user_id' => $userId,
             'section' => $question->section,
             'question_id' => $questionId,
-            'answer_value' => $answerValue,
-            'quiz_id' => $quizId,  // حتما مقدار متغیر رو بگذار
+            'answer_value' => $answerData['answer_value'] ?? null,
+            'trait' => $answerData['trait'] ?? null,
+            'quiz_id' => $quizId,
         ]);
     }
 
     Log::info('ذخیره پاسخ‌ها با موفقیت انجام شد');
 }
+
+
 
 
     /**

@@ -18,6 +18,7 @@
     $sectionBooks = $featuredBooks->filter(function($book) use ($section) {
         return strtolower($book->related_talent) === strtolower($section);
     })->values();
+        $interpretationForSection = $interpretations[$section] ?? 'تفسیر ثبت نشده است.';
 @endphp
 
 
@@ -72,16 +73,7 @@
         </div>
     </template>
 
-    {{-- امتیاز و تفسیر --}}
-    <div class="text-xs sm:text-sm font-medium text-gray-800 text-center mt-2">
-        <p>امتیاز: <span class="font-bold text-[#1dd1a1]">{{ $data['score'] }}</span></p>
-
-        @if (!empty($data['interpretation']))
-            <p class="mt-2 font-semibold text-[#54a0ff]">تفسیر:</p>
-            <p class="text-gray-700">{{ $data['interpretation'] }}</p>
-        @endif
-    </div>
-
+  
     {{-- دکمه توضیح استعداد --}}
     @if (!empty($description))
         <button id="{{ $descriptionButtonId }}" class="mt-2 px-4 py-2 bg-[#54a0ff] text-white text-xs sm:text-sm rounded-lg hover:bg-[#1dd1a1] transition">
@@ -98,13 +90,14 @@
 </div>
 
 {{-- مدال توضیح استعداد --}}
+
 @if (!empty($description))
 <div id="{{ $descriptionModalId }}" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[999999] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
     <div class="bg-white rounded-lg w-11/12 sm:w-2/3 md:w-3/4 p-4 max-h-[80vh] overflow-y-auto">
         
         <h3 class="text-sm md:text-base font-semibold text-[#54a0ff] mb-4">📘 سوالات مربوط به این استعداد:</h3>
 
-        <div x-data="{ openDesc: false, openPeople: false }" class="space-y-4">
+        <div x-data="{ openDesc: false, openInterpretation: false, openPeople: false }" class="space-y-4">
 
             {{-- توضیح استعداد --}}
             <div class="border rounded-lg">
@@ -115,6 +108,18 @@
                 </button>
                 <div x-show="openDesc" x-transition class="p-6 text-sm text-gray-700 leading-relaxed">
                     ✅ {{ $description }}
+                </div>
+            </div>
+
+            {{-- تفسیر توانایی ها --}}
+            <div class="border rounded-lg">
+                <button @click="openInterpretation = !openInterpretation" class="w-full flex justify-between items-center p-3 text-right text-[#3867d6] font-medium">
+                    <span>تفسیر توانایی‌ها در این حوزه</span>
+                    <span x-show="!openInterpretation">⬇️</span>
+                    <span x-show="openInterpretation">⬆️</span>
+                </button>
+                <div x-show="openInterpretation" x-transition class="p-6 text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                    ✅ {!! nl2br(e($interpretation)) !!}
                 </div>
             </div>
 
@@ -172,7 +177,6 @@
     </div>
 </div>
 @endif
-
 
 
 @if (!empty($data['suggestions']) || $sectionBooks->isNotEmpty())

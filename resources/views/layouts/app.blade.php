@@ -13,10 +13,11 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Webfonts/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" type="image/png" href="{{ asset('icons/favicon.png') }}">
     <link href="{{ asset('css/style1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
@@ -96,11 +97,6 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <!-- اول jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- بعد DataTables و پلاگین‌ها -->
-<!-- <script src="{{ asset('js/datatable1.js') }}"></script>
-<script src="{{ asset('js/datatable2.js') }}"></script> -->
-
 <!-- بقیه اسکریپت‌ها -->
 <script src="{{ asset('js/global.min.js') }}"></script>
 <script src="{{ asset('js/chart.js') }}"></script>

@@ -7,8 +7,11 @@ class InterpretationStrategyFactory
     {
         $map = [
             1 => DefaultInterpretationStrategy::class,
-            2 =>Quiz2InterpretationStrategy ::class,
-            // اگر کوییزهای دیگه‌ای هست اینجا اضافه کن
+            2 => Quiz2InterpretationStrategy ::class,
+            3 => Quiz3InterpretationStrategy ::class,
+            // 4 => DefaultInterpretationStrategy::class,
+            5 => Quiz5InterpretationStrategy ::class,
+
         ];
 
         if (!isset($map[$quizId])) {

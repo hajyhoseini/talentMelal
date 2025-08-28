@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,9 +46,12 @@ class RegisteredUserController extends Controller
         // ورود
         Auth::login($user);
 
-        return redirect()->route('quiz.show', [
-            'quizId' => 1,
-            'userId' => $user->id
-        ])->with('success', 'خوش آمدید!');
+        // گرفتن quiz_id از request یا استفاده از پیش‌فرض
+        $quizId = $request->input('quiz_id', 1);
+
+        // ریدایرکت به صفحه آزمون
+return redirect()->route('quiz.show', ['quizId' => $quizId])
+    ->with('success', 'خوش آمدید!');
+
     }
 }

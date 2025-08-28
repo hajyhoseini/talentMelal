@@ -17,6 +17,7 @@ class AllAnswer extends Model
         'section',
         'question_id',
         'answer_value',
+        'trait',   // اضافه شده، نال ایبل است
     ];
 
     public $timestamps = true;
@@ -24,7 +25,7 @@ class AllAnswer extends Model
     /**
      * پاسخ جدید ایجاد می‌کند یا اگر از قبل وجود داشت، آن را بروزرسانی می‌کند.
      */
-    public static function updateOrCreateAnswer($userId, $quizId, $questionId, $section, $answerValue)
+    public static function updateOrCreateAnswer($userId, $quizId, $questionId, $section, $answerValue, $trait = null)
     {
         return self::updateOrCreate(
             [
@@ -35,6 +36,7 @@ class AllAnswer extends Model
             [
                 'section'      => $section,
                 'answer_value' => $answerValue,
+                'trait'        => $trait,  // اضافه شده به بروزرسانی
             ]
         );
     }
@@ -49,7 +51,6 @@ class AllAnswer extends Model
         return $this->belongsTo(AllQuestion::class, 'question_id');
     }
 
-    // رابطه با مدل آزمون
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'quiz_id');
